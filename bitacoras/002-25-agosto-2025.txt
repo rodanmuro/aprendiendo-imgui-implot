@@ -1,0 +1,107 @@
+BITÁCORA #002 - 25 de Agosto 2025
+=====================================
+
+PROYECTO: Aprendiendo ImGui + ImPlot - Implementación de Tooltips
+OBJETIVO: Implementar tooltips específicos para ejes de plots en ImPlot
+
+ACTIVIDADES REALIZADAS:
+-----------------------
+
+1. VERIFICACIÓN DEL ENTORNO DE DESARROLLO
+   - Verificación de dependencias: cmake, libglfw3-dev, libgl1-mesa-dev, pkg-config
+   - Inicialización exitosa de submódulos Git (ImGui e ImPlot)
+   - Compilación y ejecución correcta del proyecto base
+
+2. IMPLEMENTACIÓN DE TOOLTIPS BÁSICOS CON IMGUI
+   - Creación de ejemplos con diferentes tipos de tooltips:
+     * SetTooltip() para tooltips simples de texto
+     * BeginTooltip()/EndTooltip() para tooltips avanzados con múltiple contenido
+     * SetItemTooltip() para tooltips automáticos en items
+   - Integración exitosa con información dinámica (posición mouse, FPS)
+
+3. DESARROLLO DE TOOLTIPS EN IMPLOT
+   - Generación de datos de ejemplo: función sin(x) * cos(0.5x) con 100 puntos
+   - Implementación inicial con IsPlotHovered() para detectar hover en toda el área
+   - Visualización de información de puntos de datos más cercanos al cursor
+
+4. INVESTIGACIÓN DE FUNCIONES ESPECÍFICAS DE EJES
+   - Búsqueda exhaustiva en documentación de ImPlot (implot.h)
+   - Identificación de la función clave: IsAxisHovered(ImAxis axis) en línea 992
+   - Análisis de constantes de ejes: ImAxis_X1, ImAxis_Y1
+
+5. IMPLEMENTACIÓN DE TOOLTIPS ESPECÍFICOS PARA EJES
+   - Reemplazo de IsPlotHovered() por IsAxisHovered() para cada eje
+   - Lógica condicional para detectar hover específico:
+     * bool x_axis_hovered = ImPlot::IsAxisHovered(ImAxis_X1)
+     * bool y_axis_hovered = ImPlot::IsAxisHovered(ImAxis_Y1)
+   - Implementación de tooltips diferenciados por eje:
+     * Eje X: muestra valor X y etiqueta "X-Axis Hovered"
+     * Eje Y: muestra valor Y y etiqueta "Y-Axis Hovered"
+     * Ambos ejes: mensaje especial cuando ambos están activos
+
+6. CONTROL DE VERSIONES Y DOCUMENTACIÓN
+   - Commit detallado de cambios con descripción técnica
+   - Push exitoso al repositorio remoto
+   - Documentación del proceso para futura referencia
+
+PROCESO TÉCNICO CLAVE - TOOLTIPS EN EJES:
+------------------------------------------
+
+PROBLEMA INICIAL: 
+- Los tooltips aparecían en toda el área del plot usando IsPlotHovered()
+- Se necesitaba restricción específica a los ejes del gráfico
+
+INVESTIGACIÓN:
+- Búsqueda manual en archivos fuente de ImPlot usando herramientas Grep y Read
+- Identificación de la función IsAxisHovered(ImAxis axis) 
+- Análisis de parámetros de ejes disponibles (ImAxis_X1, ImAxis_Y1)
+
+IMPLEMENTACIÓN:
+- Separación de lógica de detección por eje individual
+- Uso de variables booleanas para claridad del código
+- Condicionales específicas para cada caso (X solo, Y solo, ambos)
+- Obtención de coordenadas del mouse con GetPlotMousePos()
+
+CÓDIGO CLAVE:
+```cpp
+bool x_axis_hovered = ImPlot::IsAxisHovered(ImAxis_X1);
+bool y_axis_hovered = ImPlot::IsAxisHovered(ImAxis_Y1);
+
+if (x_axis_hovered || y_axis_hovered) {
+    ImPlotPoint mouse_pos = ImPlot::GetPlotMousePos();
+    ImGui::BeginTooltip();
+    // Lógica específica por eje...
+    ImGui::EndTooltip();
+}
+```
+
+RESULTADOS:
+-----------
+✅ Tooltips funcionando correctamente solo en ejes
+✅ Diferenciación clara entre eje X y eje Y
+✅ Información contextual relevante por eje
+✅ No aparición de tooltips en área de datos del plot
+✅ Código limpio y mantenible
+✅ Documentación completa del proceso
+
+PRÓXIMOS PASOS:
+---------------
+- Investigar y corregir bug similar en DearPyGui (wrapper Python)
+- Clonar repositorio de DearPyGui para análisis del código fuente
+- Implementar fix en el binding Python de IsAxisHovered()
+- Contribuir con pull request al proyecto DearPyGui
+
+NOTAS TÉCNICAS:
+---------------
+- ImPlot versión: 0.17
+- ImGui backend: GLFW + OpenGL3
+- Función clave: IsAxisHovered() línea 992 en implot.h
+- Ejes soportados: ImAxis_X1, ImAxis_Y1 (ejes primarios)
+- La implementación actual sirve como referencia funcional para el fix en Python
+
+LECCIONES APRENDIDAS:
+---------------------
+- La documentación en código fuente es más confiable que búsquedas web
+- El uso de herramientas de búsqueda (Grep) es esencial para proyectos grandes
+- La separación de lógica por condiciones mejora la legibilidad
+- Los tooltips específicos proporcionan mejor UX que tooltips generales
