@@ -1,0 +1,56 @@
+BITÁCORA #001 - 25 de Agosto 2025
+=====================================
+
+PROYECTO: Aprendiendo ImGui + ImPlot
+OBJETIVO: Configurar proyecto base con Dear ImGui e ImPlot para aprendizaje
+
+ACTIVIDADES REALIZADAS:
+-----------------------
+
+1. CONFIGURACIÓN INICIAL DEL PROYECTO
+   - Creación de estructura de directorios (src/, third_party/)
+   - Configuración de CMakeLists.txt para compilación con GLFW + OpenGL3
+   - Instalación de dependencias del sistema: cmake, build-essential, libglfw3-dev, libgl1-mesa-dev
+
+2. INTEGRACIÓN DE LIBRERÍAS
+   - Descarga de Dear ImGui desde https://github.com/ocornut/imgui
+   - Descarga de ImPlot desde https://github.com/epezent/implot
+   - Configuración como dependencias en CMake
+
+3. DESARROLLO DE APLICACIÓN BÁSICA
+   - Creación de main.cpp con ejemplo funcional
+   - Implementación de ventana GLFW con contexto OpenGL3
+   - Integración de Dear ImGui con backend GLFW/OpenGL3
+   - Integración de ImPlot para gráficos
+   - Demo windows funcionales para ambas librerías
+
+4. CONTROL DE VERSIONES
+   - Inicialización de repositorio Git local
+   - Configuración de .gitignore para archivos de build
+   - Configuración de Dear ImGui e ImPlot como submódulos Git
+   - Commit inicial del proyecto
+
+5. REPOSITORIO REMOTO
+   - Creación de repositorio en GitHub: "aprendiendo-imgui-implot"
+   - Configuración de SSH para acceso remoto
+   - Push exitoso del código al repositorio remoto
+
+RESULTADOS:
+-----------
+✅ Proyecto compilando correctamente
+✅ Aplicación ejecutándose con demos funcionales
+✅ Repositorio Git configurado y sincronizado
+✅ Estructura base lista para desarrollo futuro
+
+PRÓXIMOS PASOS:
+---------------
+- Experimentar con widgets específicos de ImGui
+- Crear gráficos personalizados con ImPlot
+- Implementar funcionalidades propias del proyecto
+
+NOTAS TÉCNICAS:
+---------------
+- Sistema: Linux Mint
+- Compilador: GCC 11.4.0
+- CMake: Configurado para C++17
+- Backends: GLFW 3.3.6 + OpenGL 3.3+
